@@ -6,8 +6,7 @@
         private readonly BoardRenderer renderer = new BoardRenderer();
         private readonly GomokuRule rule = new GomokuRule();
 
-        private int cursorX = 0;
-        private int cursorY = 0;
+        private Position cursor = new Position(0,0);
         private Stone turn = Stone.Black;
         private string systemMessage = "";
 
@@ -19,7 +18,7 @@
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                renderer.Render(board, cursorX, cursorY, turn);
+                renderer.Render(board, cursor, turn);
 
                 Console.WriteLine($"Player {(turn == Stone.Black ? 1 : 2)}P의 턴입니다.");
                 Console.WriteLine("방향키로 이동하고, Space를 눌러 돌을 배치하세요.");
@@ -45,23 +44,23 @@
                 }
                 else if (key == ConsoleKey.Spacebar)
                 {
-                    if (!board.IsEmpty(cursorX, cursorY)) // 돌이 배치되었는지 체크
+                    if (!board.IsEmpty(cursor)) // 돌이 배치되었는지 체크
                     {
                         systemMessage = "이미 돌이 배치되어 있습니다. 다른 곳에 배치해주세요.\n";
                         continue;
                     }
-                    if (rule.IsDoubleThree(board, cursorX, cursorY, turn)) // 33 금수 체크
+                    if (rule.IsDoubleThree(board, cursor, turn)) // 33 금수 체크
                     {
                         systemMessage = "33 금수입니다. 다른 곳에 배치해주세요.\n";
                         continue;
                     }
 
-                    board.PlaceStone(cursorX, cursorY, turn);
+                    board.PlaceStone(cursor, turn);
 
-                    if (rule.IsWin(board, cursorX, cursorY, turn)) // 승리 체크
+                    if (rule.IsWin(board, cursor, turn)) // 승리 체크
                     {
                         Console.Clear();
-                        renderer.Render(board, cursorX, cursorY, turn, false);
+                        renderer.Render(board, cursor, turn, false);
                         Console.WriteLine($"Player {(turn == Stone.Black ? 1 : 2)}P의 승리로 게임을 종료합니다.");
                         Console.WriteLine("아무 키나 입력하면 메뉴로 돌아갑니다.");
                         Console.ReadKey(true);
@@ -73,15 +72,13 @@
                 }
             }
         }
-        private void MoveCursor(int dx, int dy) // 커서 위치 옮기기
+        private void MoveCursor(int dRow, int dCol) // 커서 위치 옮기기
         {
-            int nextX = cursorX + dx;
-            int nextY = cursorY + dy;
+            Position next = new Position(cursor.Row + dRow, cursor.Col + dCol);
 
-            if (board.IsInside(nextX, nextY)) // 유효한 범위만 이동
+            if (board.IsInside(next)) // 유효한 범위만 이동
             {
-                cursorX = nextX;
-                cursorY = nextY;
+                cursor = next;
             }
 
             systemMessage = "";
