@@ -21,7 +21,18 @@
             return cells[pos.Row, pos.Col];
         }
 
-        public void PlaceStone(Position pos, Stone stone) // 돌 놓기
+        public bool TryPlaceStone(Position pos, Stone stone) // 실제 돌 놓기 
+        {
+            if (!IsInside(pos)) return false;
+
+            if (!IsEmpty(pos)) return false;
+
+            cells[pos.Row, pos.Col] = stone;
+            return true;
+        }
+
+
+        public void SetStone(Position pos, Stone stone) // 룰 체크, 시뮬레이션 등등에 활용할 용도의 돌 놓기
         {
             cells[pos.Row, pos.Col] = stone;
         }
