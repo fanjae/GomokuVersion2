@@ -44,18 +44,8 @@
                 }
                 else if (key == ConsoleKey.Spacebar)
                 {
-                    if (!board.IsEmpty(cursor)) // 돌이 배치되었는지 체크
-                    {
-                        systemMessage = "이미 돌이 배치되어 있습니다. 다른 곳에 배치해주세요.\n";
+                    if (!TryApplyMove(cursor))
                         continue;
-                    }
-                    if (rule.IsDoubleThree(board, cursor, turn)) // 33 금수 체크
-                    {
-                        systemMessage = "33 금수입니다. 다른 곳에 배치해주세요.\n";
-                        continue;
-                    }
-
-                    board.PlaceStone(cursor, turn);
 
                     if (rule.IsWin(board, cursor, turn)) // 승리 체크
                     {
@@ -87,6 +77,28 @@
         private void ChangeTurn()
         {
             turn = turn == Stone.Black ? Stone.White : Stone.Black;
+        }
+
+        private bool TryApplyMove(Position pos) // 현재 턴 적용
+        {
+            if (!board.IsEmpty(pos)) // 돌이 배치되었는지 체크
+            {
+                systemMessage = "이미 돌이 배치되어 있습니다. 다른 곳에 배치해주세요.\n";
+                return false;
+            }
+            if (rule.IsDoubleThree(board, pos, turn)) // 33 금수 체크
+            {
+                systemMessage = "33 금수입니다. 다른 곳에 배치해주세요.\n";
+                return false;
+            }
+
+            if (!board.TryPlaceStone(pos, turn))
+            {
+                systemMessage = "돌을 배치할 수 없습니다.\n";
+                return false;
+            }
+
+            return true;
         }
     }
 }
