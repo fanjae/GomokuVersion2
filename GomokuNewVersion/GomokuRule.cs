@@ -73,7 +73,7 @@
             Position forwardEnd = new Position(pos.Row + dRow * (forwardCnt + 1), pos.Col + dCol * (forwardCnt + 1));
 
             // 역방향 돌 좌표 계산
-            Position backwardEnd = new Position(pos.Row + dRow * (backwardCnt + 1), pos.Col + dCol * (backwardCnt + 1));
+            Position backwardEnd = new Position(pos.Row - dRow * (backwardCnt + 1), pos.Col - dCol * (backwardCnt + 1));
 
             // 정방향 끝이 보드 안에 있고 비어 있는가
             bool forwardOpen = board.IsInside(forwardEnd) && board.GetStone(forwardEnd) == Stone.Empty;
