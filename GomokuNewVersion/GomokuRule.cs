@@ -37,7 +37,7 @@
             }
 
             // 돌을 놓은 것을 전제하여 검사
-            board.PlaceStone(pos, stone);
+            board.SetStone(pos, stone);
 
             int openThreeCnt = 0;
 
@@ -53,7 +53,7 @@
             }
 
             // 검사 후 임시로 놓았던 돌 제거
-            board.PlaceStone(pos, Stone.Empty);
+            board.SetStone(pos, Stone.Empty);
 
             return openThreeCnt >= 2;
         }
