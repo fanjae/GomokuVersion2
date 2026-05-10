@@ -63,6 +63,12 @@
 
         private bool TryApplyMove(Position pos, Stone stone, out string errorMessage) // 현재 턴 적용
         {
+            if (!board.IsInside(pos)) // 보드 범위 우선 체크
+            {
+                errorMessage = "보드 범위를 벗어났습니다.";
+                return false;
+            }
+
             if (!board.IsEmpty(pos)) // 돌이 배치되었는지 체크
             {
                 errorMessage = "이미 돌이 배치되어 있습니다. 다른 곳에 배치해주세요.\n";
