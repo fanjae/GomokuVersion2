@@ -3,6 +3,6 @@
     internal interface IPlayer
     {
         Stone Stone { get; }
-        Position SelectMove(Board board, Position cursor);
+        Position SelectMove(Board board);
     }
 }
