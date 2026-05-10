@@ -81,7 +81,7 @@
         }
 
 
-        private int CountStone(Board board, Position pos, int dRow, int dCol, Stone stone) // 돌 개수 세기
+        public int CountStone(Board board, Position pos, int dRow, int dCol, Stone stone) // 돌 개수 세기
         {
             int cnt = 0;
 
@@ -94,6 +94,21 @@
             }
 
             return cnt;
+        }
+
+        public int CountOpenEnds(Board board, Position pos, int dRow, int dCol, int forward, int backward) // 양 끝 개수를 세기
+        {
+            int openEnds = 0;
+
+            Position forwardEnd = new Position(pos.Row + dRow * (forward + 1), pos.Col + dCol * (forward + 1));
+
+            Position backwardEnd = new Position(pos.Row - dRow * (backward + 1), pos.Col - dCol * (backward + 1));
+
+            if (board.IsInside(forwardEnd) && board.IsEmpty(forwardEnd)) openEnds++;
+
+            if (board.IsInside(backwardEnd) && board.IsEmpty(backwardEnd)) openEnds++;
+
+            return openEnds;
         }
     }
 }
