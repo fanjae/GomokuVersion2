@@ -27,7 +27,7 @@
             }
         }
 
-        private void RenderColumnLabels(int cursorY, bool showCursor)
+        private void RenderColumnLabels(int cursorY, bool showCursor) // 열 라벨 렌더링
         {
             Console.Write("   ");
 
@@ -42,7 +42,7 @@
             Console.WriteLine();
         }
 
-        private void RenderRowLabel(int row, int cursorX, bool showCursor)
+        private void RenderRowLabel(int row, int cursorX, bool showCursor) // 행 라벨 렌더링
         {
             if (showCursor && row == cursorX)
                 Console.Write("＋ ");
