@@ -18,6 +18,9 @@
 
         public Stone GetStone(Position pos) // 돌 정보 얻어오기
         {
+            if (!IsInside(pos))
+                throw new ArgumentOutOfRangeException(nameof(pos), "보드 범위를 벗어난 위치입니다.");
+
             return cells[pos.Row, pos.Col];
         }
 
@@ -34,6 +37,9 @@
 
         public void SetStone(Position pos, Stone stone) // 룰 체크, 시뮬레이션 등등에 활용할 용도의 돌 놓기
         {
+            if (!IsInside(pos))
+                throw new ArgumentOutOfRangeException(nameof(pos), "보드 범위를 벗어난 위치입니다.");
+
             cells[pos.Row, pos.Col] = stone;
         }
     }
