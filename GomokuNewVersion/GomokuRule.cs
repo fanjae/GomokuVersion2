@@ -39,23 +39,26 @@
             // 돌을 놓은 것을 전제하여 검사
             board.SetStone(pos, stone);
 
-            int openThreeCnt = 0;
-
-            // 가로, 세로, 대각선 2개 방향 검사(4방향 탐색)            
-            for (int i = 0; i < 4; i++)
+            try
             {
-                int dRow = directions[i, 0];
-                int dCol = directions[i, 1];
+                int openThreeCnt = 0;
 
-                // 현재 방향에서 열린 3이 만들어졌다면 개수 증가
-                if (IsOpenThree(board, pos, dRow, dCol, stone))
-                    openThreeCnt++;
+                // 가로, 세로, 대각선 2개 방향 검사(4방향 탐색)  
+                for (int i = 0; i < 4; i++)
+                {
+                    int dRow = directions[i, 0];
+                    int dCol = directions[i, 1];
+
+                    // 현재 방향에서 열린 3이 만들어졌다면 개수 증가
+                    if (IsOpenThree(board, pos, dRow, dCol, stone))
+                        openThreeCnt++;
+                }
+                return openThreeCnt >= 2;
             }
-
-            // 검사 후 임시로 놓았던 돌 제거
-            board.SetStone(pos, Stone.Empty);
-
-            return openThreeCnt >= 2;
+            finally
+            {
+                board.SetStone(pos, Stone.Empty);
+            }
         }
         private bool IsOpenThree(Board board, Position pos, int dRow, int dCol, Stone stone) // 열린 3,3 체크
         {
