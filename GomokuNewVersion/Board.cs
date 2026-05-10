@@ -13,7 +13,7 @@
 
         public bool IsEmpty(Position pos) // 빈칸 체크
         {
-            return cells[pos.Row, pos.Col] == Stone.Empty;
+            return IsInside(pos) && cells[pos.Row, pos.Col] == Stone.Empty;
         }
 
         public Stone GetStone(Position pos) // 돌 정보 얻어오기
