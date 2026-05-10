@@ -2,20 +2,12 @@
 {
     internal class GomokuRule
     {
-        private readonly int[,] directions =
-        {
-            { 0, 1 },
-            { 1, 0 },
-            { 1, 1 },
-            { 1, -1 }
-        };
-
         public bool IsWin(Board board, Position pos, Stone stone) // 승리 체크
         {
             for (int i = 0; i < 4; i++)
             {
-                int dRow = directions[i, 0];
-                int dCol = directions[i, 1];
+                int dRow = GomokuDirections.GetRow(i);
+                int dCol = GomokuDirections.GetCol(i);
 
                 int count = 1; // 본인 돌을 전제로 계산.
                 count += CountStone(board, pos, dRow, dCol, stone);
@@ -46,8 +38,8 @@
                 // 가로, 세로, 대각선 2개 방향 검사(4방향 탐색)  
                 for (int i = 0; i < 4; i++)
                 {
-                    int dRow = directions[i, 0];
-                    int dCol = directions[i, 1];
+                    int dRow = GomokuDirections.GetRow(i);
+                    int dCol = GomokuDirections.GetCol(i);
 
                     // 현재 방향에서 열린 3이 만들어졌다면 개수 증가
                     if (IsOpenThree(board, pos, dRow, dCol, stone))
