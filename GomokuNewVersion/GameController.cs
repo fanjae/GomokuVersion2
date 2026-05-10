@@ -48,6 +48,16 @@
                     break;
                 }
 
+                if (board.IsFull())
+                {
+                    Console.Clear();
+                    renderer.Render(board, move, currentPlayer.Stone, false);
+                    Console.WriteLine("무승부로 게임을 종료합니다.");
+                    Console.WriteLine("아무 키나 입력하면 메뉴로 돌아갑니다.");
+                    Console.ReadKey(true);
+                    break;
+                }
+
                 ChangeTurn();
             }
         }

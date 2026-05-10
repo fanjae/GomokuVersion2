@@ -42,5 +42,19 @@
 
             cells[pos.Row, pos.Col] = stone;
         }
+
+        public bool IsFull() // 모두 꽉 차있는지 확인
+        {
+            for (int row = 0; row < Size; row++)
+            {
+                for (int col = 0; col < Size; col++)
+                {
+                    if (cells[row, col] == Stone.Empty)
+                        return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
