@@ -3,18 +3,19 @@
     internal class GameController
     {
         private readonly Board board = new Board();
-        private readonly BoardRenderer renderer = new BoardRenderer();
         private readonly GomokuRule rule = new GomokuRule();
+        private readonly BoardRenderer renderer;
 
         private readonly IPlayer blackPlayer;
         private readonly IPlayer whitePlayer;
 
         private Stone turn = Stone.Black;
 
-        public GameController()
+        public GameController(IPlayer blackPlayer, IPlayer whitePlayer, BoardRenderer renderer) // 생성자를 통해 메뉴로부터 플레이어 정보 생성
         {
-            blackPlayer = new UserPlayer(Stone.Black, renderer);
-            whitePlayer = new UserPlayer(Stone.White, renderer);
+            this.blackPlayer = blackPlayer;
+            this.whitePlayer = whitePlayer;
+            this.renderer = renderer;
         }
 
         public void Run()
