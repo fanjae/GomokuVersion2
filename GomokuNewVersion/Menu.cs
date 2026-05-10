@@ -11,7 +11,7 @@
                 switch (input)
                 {
                     case 1:
-                        new GameController().Run();
+                        PlayerVsPlayer();
                         break;
                     case 2:
                         ShowHowToPlay();
@@ -74,6 +74,18 @@
             Console.WriteLine("Made by. FanJae.");
             Console.WriteLine("아무 키나 누르면 메뉴로 돌아갑니다.");
             Console.ReadKey(true);
+        }
+
+        private void PlayerVsPlayer()
+        {
+            BoardRenderer renderer = new BoardRenderer();
+
+            IPlayer blackPlayer = new UserPlayer(Stone.Black, renderer);
+            IPlayer whitePlayer = new UserPlayer(Stone.White, renderer);
+
+            GameController gameController = new GameController(blackPlayer, whitePlayer, renderer);
+            gameController.Run();
+            
         }
     }
 }
