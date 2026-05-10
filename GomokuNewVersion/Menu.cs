@@ -14,12 +14,15 @@
                         PlayerVsPlayer();
                         break;
                     case 2:
-                        ShowHowToPlay();
+                        PlayerVsCpu();
                         break;
                     case 3:
-                        ShowCredits();
+                        ShowHowToPlay();
                         break;
                     case 4:
+                        ShowCredits();
+                        break;
+                    case 5:
                         Console.WriteLine("프로그램을 종료합니다.");
                         return;
                     default:
@@ -37,15 +40,16 @@
                 Console.WriteLine("============================");
                 Console.WriteLine("오목 게임을 플레이합니다!");
                 Console.WriteLine("1. 2인용 플레이");
-                Console.WriteLine("2. 게임 방법");
-                Console.WriteLine("3. Credits");
-                Console.WriteLine("4. 종료");
+                Console.WriteLine("2. 컴퓨터랑 플레이");
+                Console.WriteLine("3. 게임 방법");
+                Console.WriteLine("4. Credits");
+                Console.WriteLine("5. 종료");
                 Console.WriteLine("============================");
                 Console.Write("원하는 메뉴를 입력하세요 : ");
 
                 string? inputText = Console.ReadLine();
 
-                if (int.TryParse(inputText, out int input) && input >= 1 && input <= 4)
+                if (int.TryParse(inputText, out int input) && input >= 1 && input <= 5)
                     return input;
 
                 Console.WriteLine("다시 입력하세요.");
@@ -76,7 +80,7 @@
             Console.ReadKey(true);
         }
 
-        private void PlayerVsPlayer()
+        private void PlayerVsPlayer() // 유저 vs 유저 싸움
         {
             BoardRenderer renderer = new BoardRenderer();
 
@@ -84,8 +88,17 @@
             IPlayer whitePlayer = new UserPlayer(Stone.White, renderer);
 
             GameController gameController = new GameController(blackPlayer, whitePlayer, renderer);
+            gameController.Run();  
+        }
+        private void PlayerVsCpu() // 유저 vs 컴퓨터 싸움
+        {
+            BoardRenderer renderer = new BoardRenderer();
+
+            IPlayer blackPlayer = new UserPlayer(Stone.Black, renderer);
+            IPlayer whitePlayer = new AIPlayer(Stone.White);
+
+            GameController gameController = new GameController(blackPlayer, whitePlayer, renderer);
             gameController.Run();
-            
         }
     }
 }
