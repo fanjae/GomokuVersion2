@@ -33,7 +33,7 @@ Space Bar : 바둑돌 배치
 - 2026.05.08~05.10
 
 ## Blog
-- 링크 : https://fanjae.tistory.com/203
+- 링크 : https://fanjae.tistory.com/209
 
 ## 플레이 영상
 - 링크 : https://www.youtube.com/watch?v=E-0YAavmnCc
